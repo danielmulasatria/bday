@@ -1,15 +1,9 @@
 // Game state management
 let currentScreen = 'loading';
-let tetrisGame = null;
-let gameScore = 0;
-let gameLevel = 1;
-let gameLines = 0;
 let typewriterInterval = null;
 let isTyping = false;
 let currentPhotoIndex = 0;
 let currentMusicIndex = 0;
-let isPlaying = false;
-let playbackInterval = null;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -20,7 +14,6 @@ function initializeApp() {
     showScreen('loading');
     simulateLoading();
     addEventListeners();
-    initializeTetris();
 }
 
 function simulateLoading() {
@@ -173,13 +166,6 @@ function showScreen(screenName) {
                     initializeMusicPlayer();
                 }, 100);
                 break;
-            case 'tetris':
-                setTimeout(() => {
-                    if (tetrisGame && !tetrisGame.gameRunning) {
-                        startTetrisGame();
-                    }
-                }, 100);
-                break;
         }
     }
 }
@@ -223,15 +209,16 @@ function startTypewriter() {
     const messageContent = document.querySelector('.message-content');
     if (!messageContent) return;
     
-    const fullMessage = `Hi,
+    const fullMessage = `Haii,
 
-Happy Birthday!
+Happy Birthday ya sayang! 🎂
+Selamat ulang tahun yang ke-22 yaa!
 
-Hari ini aku pengen kamu ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo kamu ada di dunia ini. Semoga segala keinginanmu tercapai, apalagi yang kocak-kocak dan gak biasa, karena kamu tuh unik banget! Aku selalu percaya kalau kamu bisa melewati semua tantangan dengan kekuatan dan semangat yang luar biasa.
+Semoga di tahun ini kamu selalu diberikan kesehatan, kebahagiaan, dan kelancaran sepanjang hari yaa. I really wish you the best sayangg.
 
-Terima kasih udah jadi bagian hidup aku yang paling berharga. Kamu bener-bener bikin hari-hari aku jadi lebih berarti dan penuh warna. Semoga di tahun yang baru ini, kamu makin bahagia, makin sukses, dan tentunya makin cantik (walaupun udah cantik banget sih!).
+Terima kasih sudahh mau nemenin aku terus terus dan jangan bosen ya sama akuu masi banyak yg harus kita lakuinn tauu!
 
-I love you so much! 💕`;
+I love you so muchuuu 💕`;
     
     // Clear content and start fresh
     messageContent.innerHTML = '';
@@ -266,7 +253,7 @@ function skipTypewriter() {
         clearInterval(typewriterInterval);
         const messageContent = document.querySelector('.message-content');
         if (messageContent) {
-            const fullMessage = `Hi Cel,<br><br>Happy Birthday!<br><br>Hari ini aku pengen kamu ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo kamu ada di dunia ini. Semoga segala keinginanmu tercapai, apalagi yang kocak-kocak dan gak biasa, karena kamu tuh unik banget! Aku selalu percaya kalau kamu bisa melewati semua tantangan dengan kekuatan dan semangat yang luar biasa.<br><br>Terima kasih udah jadi bagian hidup aku yang paling berharga. Kamu bener-bener bikin hari-hari aku jadi lebih berarti dan penuh warna. Semoga di tahun yang baru ini, kamu makin bahagia, makin sukses, dan tentunya makin cantik (walaupun udah cantik banget sih!).<br><br>I love you so much! 💕`;
+            const fullMessage = `Haii,<br><br>Happy 22nd Birthday ya sayang! 🎂<br><br>Semoga di tahun ini kamu selalu diberikan kesehatan, kebahagiaan, dan kelancaran sepanjang hari yaa. I really wish you the best sayangg.<br><br>Terima kasih sudahh mau nemenin aku terus terus dan jangan bosen ya sama akuu masi banyak yg harus kita lakuinn tauu!<br><br>Di umur baru ini, kamu semakin bahagia yaa.<br><br>I love you so muchuuu 💕`;
             messageContent.innerHTML = fullMessage;
             isTyping = false;
             messageContent.scrollTop = messageContent.scrollHeight;
@@ -322,19 +309,19 @@ function startPhotoShow() {
     // Foto lokal dari folder images
     const photos = [
         {
-            text: 'Our First Date 💕',
+            text: 'Our First Photobox 💕',
             image: './images/photo1.jpg'
         },
         {
-            text: 'Birthday Moment 🎂',
+            text: 'Another Photobox',
             image: './images/photo2.jpg'
         },
         {
-            text: 'Adventure Time 🌟',
+            text: 'Addicted to Photobox',
             image: './images/photo3.jpg'
         },
         {
-            text: 'Cozy Together ❤️',
+            text: 'Valentine Day❤️',
             image: './images/photo4.jpg'
         },
         {
@@ -546,37 +533,26 @@ function initializeMusicPlayer() {
     musicContent.innerHTML = `
         <div class="spotify-container">
             <div class="spotify-header">
-                <div class="spotify-logo">♪ Spotify Playlists</div>
+                <div class="spotify-logo">♪ Music For You</div>
             </div>
             <div class="spotify-embed-container">
                 <iframe id="spotify-iframe" 
                         style="border-radius:12px" 
-                        src="" 
+                        src="https://open.spotify.com/embed/playlist/3XewOCOy4CT6JcvsSZ5lDf?utm_source=generator&theme=0" 
                         width="100%" 
-                        height="200" 
+                        height="220" 
                         frameBorder="0" 
                         allowfullscreen="" 
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                         loading="lazy">
                 </iframe>
             </div>
-            <div class="playlist-controls">
-                <button class="playlist-btn active" data-playlist="1">Playlist 1</button>
-                <button class="playlist-btn" data-playlist="2">Playlist 2</button>
-                <button class="playlist-btn" data-playlist="3">Playlist 3</button>
-            </div>
             <div class="music-info">
-                <div class="current-playlist">Now Playing: Birthday Special Mix</div>
-                <div class="playlist-description">Lagu-lagu spesial untuk hari istimewa kamu ✨</div>
+                <div class="current-playlist">🎵 Playlist favorit kitaa!!</div>
+                <div class="playlist-description">Lagu-lagu spesial kita berdua ✨</div>
             </div>
         </div>
     `;
-    
-    // Add music player event listeners
-    addSpotifyPlayerListeners();
-    
-    // Load default playlist
-    loadSpotifyPlaylist(1);
 }
 
 function addSpotifyPlayerListeners() {
@@ -652,409 +628,12 @@ function loadSpotifyPlaylist(playlistNumber) {
     }
 }
 
-// Tetris Game Functions
-function initializeTetris() {
-    const canvas = document.getElementById('tetris-canvas');
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    
-    // Calculate much larger canvas size
-    const gameContainer = document.querySelector('.tetris-game');
-    if (gameContainer) {
-        const containerRect = gameContainer.getBoundingClientRect();
-        
-        // Much larger maximum dimensions - use almost all available space
-        const maxWidth = containerRect.width - 15; // Only 15px margin
-        const maxHeight = containerRect.height - 15; // Only 15px margin
-        
-        // Maintain aspect ratio (approximately 1:2 for Tetris)
-        const aspectRatio = 1 / 2;
-        let canvasWidth = Math.min(maxWidth, maxHeight * aspectRatio);
-        let canvasHeight = canvasWidth / aspectRatio;
-        
-        // If height is too tall, adjust based on height
-        if (canvasHeight > maxHeight) {
-            canvasHeight = maxHeight;
-            canvasWidth = canvasHeight * aspectRatio;
-        }
-        
-        // Ensure minimum reasonable size
-        canvasWidth = Math.max(canvasWidth, 500);
-        canvasHeight = Math.max(canvasHeight, 600);
-        
-        canvas.width = Math.floor(canvasWidth);
-        canvas.height = Math.floor(canvasHeight);
-        
-        console.log('Container size:', containerRect.width, 'x', containerRect.height);
-        console.log('Canvas size:', canvas.width, 'x', canvas.height);
-    } else {
-        // Much larger fallback dimensions
-        canvas.width = 500; // Increased significantly
-        canvas.height = 600; // Increased significantly
-    }
-    
-    // Calculate block size - ensure it's large enough to see clearly
-    const blockSize = Math.max(Math.floor(canvas.width / 10), 25); // Minimum 25px blocks
-    const boardHeight = Math.floor(canvas.height / blockSize);
-    
-    tetrisGame = {
-        canvas: canvas,
-        ctx: ctx,
-        board: createEmptyBoard(10, boardHeight),
-        currentPiece: null,
-        gameRunning: false,
-        dropTime: 0,
-        lastTime: 0,
-        dropInterval: 1000,
-        blockSize: blockSize,
-        boardWidth: 10,
-        boardHeight: boardHeight
-    };
-    
-    console.log('Block size:', blockSize, 'Board:', tetrisGame.boardWidth, 'x', tetrisGame.boardHeight);
-    
-    updateTetrisStats();
-    drawTetrisBoard();
-    addTetrisListeners();
-}
 
-function createEmptyBoard(width, height) {
-    const board = [];
-    for (let y = 0; y < height; y++) {
-        board[y] = [];
-        for (let x = 0; x < width; x++) {
-            board[y][x] = 0;
-        }
-    }
-    return board;
-}
 
-function drawTetrisBoard() {
-    if (!tetrisGame) return;
-    
-    const { ctx, canvas, board, blockSize } = tetrisGame;
-    
-    // Clear canvas with proper background
-    ctx.fillStyle = '#0a0a0a';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw more visible grid lines for larger canvas
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 1; // Thicker lines for better visibility
-    
-    // Vertical lines
-    for (let x = 0; x <= tetrisGame.boardWidth; x++) {
-        ctx.beginPath();
-        ctx.moveTo(x * blockSize, 0);
-        ctx.lineTo(x * blockSize, canvas.height);
-        ctx.stroke();
-    }
-    
-    // Horizontal lines
-    for (let y = 0; y <= board.length; y++) {
-        ctx.beginPath();
-        ctx.moveTo(0, y * blockSize);
-        ctx.lineTo(canvas.width, y * blockSize);
-        ctx.stroke();
-    }
-    
-    // Draw placed blocks
-    for (let y = 0; y < board.length; y++) {
-        for (let x = 0; x < board[y].length; x++) {
-            if (board[y][x] !== 0) {
-                drawBlock(x, y, getBlockColor(board[y][x]));
-            }
-        }
-    }
-    
-    // Draw current piece
-    if (tetrisGame.currentPiece) {
-        drawPiece(tetrisGame.currentPiece);
-    }
-    
-    // Draw prominent border around play area
-    ctx.strokeStyle = '#9bbc0f';
-    ctx.lineWidth = 4; // Much thicker border
-    ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
-}
 
-function drawBlock(x, y, color) {
-    if (!tetrisGame) return;
-    
-    const { ctx, blockSize } = tetrisGame;
-    const padding = Math.max(2, Math.floor(blockSize * 0.08)); // Larger padding for bigger blocks
-    
-    // Main block with rounded corners effect
-    ctx.fillStyle = color;
-    ctx.fillRect(
-        x * blockSize + padding, 
-        y * blockSize + padding, 
-        blockSize - padding * 2, 
-        blockSize - padding * 2
-    );
-    
-    // Enhanced 3D effect for larger blocks
-    if (blockSize > 20) {
-        const effectSize = Math.max(2, Math.floor(blockSize * 0.12));
-        
-        // Highlight (top and left edges) - brighter for better visibility
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.fillRect(x * blockSize + padding, y * blockSize + padding, blockSize - padding * 2, effectSize);
-        ctx.fillRect(x * blockSize + padding, y * blockSize + padding, effectSize, blockSize - padding * 2);
-        
-        // Shadow (bottom and right edges) - darker for better contrast
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(x * blockSize + padding, y * blockSize + blockSize - padding - effectSize, blockSize - padding * 2, effectSize);
-        ctx.fillRect(x * blockSize + blockSize - padding - effectSize, y * blockSize + padding, effectSize, blockSize - padding * 2);
-        
-        // Inner border for more definition
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(
-            x * blockSize + padding, 
-            y * blockSize + padding, 
-            blockSize - padding * 2, 
-            blockSize - padding * 2
-        );
-    }
-}
-
-function drawPiece(piece) {
-    piece.shape.forEach((row, y) => {
-        row.forEach((value, x) => {
-            if (value !== 0) {
-                drawBlock(piece.x + x, piece.y + y, getBlockColor(value));
-            }
-        });
-    });
-}
-
-function getBlockColor(type) {
-    const colors = {
-        1: '#ff4757', // I-piece - bright red
-        2: '#2ed573', // O-piece - bright green
-        3: '#3742fa', // T-piece - bright blue
-        4: '#ff6b35', // S-piece - bright orange
-        5: '#ffa502', // Z-piece - bright yellow
-        6: '#a55eea', // J-piece - bright purple
-        7: '#26d0ce'  // L-piece - bright cyan
-    };
-    return colors[type] || '#ffffff';
-}
-
-function createTetrisPiece() {
-    const pieces = [
-        { shape: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], x: 3, y: 0 }, // I
-        { shape: [[2,2],[2,2]], x: 4, y: 0 }, // O
-        { shape: [[0,3,0],[3,3,3],[0,0,0]], x: 3, y: 0 }, // T
-        { shape: [[0,4,4],[4,4,0],[0,0,0]], x: 3, y: 0 }, // S
-        { shape: [[5,5,0],[0,5,5],[0,0,0]], x: 3, y: 0 }, // Z
-        { shape: [[6,0,0],[6,6,6],[0,0,0]], x: 3, y: 0 }, // J
-        { shape: [[0,0,7],[7,7,7],[0,0,0]], x: 3, y: 0 }  // L
-    ];
-    
-    return pieces[Math.floor(Math.random() * pieces.length)];
-}
-
-function startTetrisGame() {
-    if (!tetrisGame) return;
-    
-    tetrisGame.gameRunning = true;
-    tetrisGame.currentPiece = createTetrisPiece();
-    gameScore = 0;
-    gameLevel = 1;
-    gameLines = 0;
-    updateTetrisStats();
-    
-    tetrisGameLoop();
-}
-
-function tetrisGameLoop(time = 0) {
-    if (!tetrisGame || !tetrisGame.gameRunning) return;
-    
-    const deltaTime = time - tetrisGame.lastTime;
-    tetrisGame.lastTime = time;
-    tetrisGame.dropTime += deltaTime;
-    
-    if (tetrisGame.dropTime > tetrisGame.dropInterval) {
-        moveTetrisPiece('down');
-        tetrisGame.dropTime = 0;
-    }
-    
-    drawTetrisBoard();
-    requestAnimationFrame(tetrisGameLoop);
-}
-
-function moveTetrisPiece(direction) {
-    if (!tetrisGame || !tetrisGame.currentPiece) return;
-    
-    const piece = tetrisGame.currentPiece;
-    let newX = piece.x;
-    let newY = piece.y;
-    
-    switch(direction) {
-        case 'left':
-            newX = piece.x - 1;
-            break;
-        case 'right':
-            newX = piece.x + 1;
-            break;
-        case 'down':
-            newY = piece.y + 1;
-            break;
-    }
-    
-    if (isValidMove(piece.shape, newX, newY)) {
-        piece.x = newX;
-        piece.y = newY;
-    } else if (direction === 'down') {
-        placePiece();
-        clearLines();
-        tetrisGame.currentPiece = createTetrisPiece();
-        
-        if (!isValidMove(tetrisGame.currentPiece.shape, tetrisGame.currentPiece.x, tetrisGame.currentPiece.y)) {
-            gameOver();
-        }
-    }
-}
-
-function rotateTetrisPiece() {
-    if (!tetrisGame || !tetrisGame.currentPiece) return;
-    
-    const piece = tetrisGame.currentPiece;
-    const rotatedShape = rotateMatrix(piece.shape);
-    
-    if (isValidMove(rotatedShape, piece.x, piece.y)) {
-        piece.shape = rotatedShape;
-    }
-}
-
-function isValidMove(shape, x, y) {
-    if (!tetrisGame) return false;
-    
-    for (let py = 0; py < shape.length; py++) {
-        for (let px = 0; px < shape[py].length; px++) {
-            if (shape[py][px] !== 0) {
-                const newX = x + px;
-                const newY = y + py;
-                
-                // Check boundaries
-                if (newX < 0 || newX >= tetrisGame.boardWidth || newY >= tetrisGame.boardHeight) {
-                    return false;
-                }
-                
-                // Check collision with placed blocks
-                if (newY >= 0 && tetrisGame.board[newY] && tetrisGame.board[newY][newX] !== 0) {
-                    return false;
-                }
-            }
-        }
-    }
-    
-    return true;
-}
-
-function placePiece() {
-    if (!tetrisGame || !tetrisGame.currentPiece) return;
-    
-    const piece = tetrisGame.currentPiece;
-    
-    piece.shape.forEach((row, y) => {
-        row.forEach((value, x) => {
-            if (value !== 0) {
-                const boardX = piece.x + x;
-                const boardY = piece.y + y;
-                if (boardY >= 0 && boardY < tetrisGame.board.length && boardX >= 0 && boardX < 10) {
-                    tetrisGame.board[boardY][boardX] = value;
-                }
-            }
-        });
-    });
-}
-
-function clearLines() {
-    if (!tetrisGame) return;
-    
-    let linesCleared = 0;
-    
-    for (let y = tetrisGame.board.length - 1; y >= 0; y--) {
-        if (tetrisGame.board[y].every(cell => cell !== 0)) {
-            tetrisGame.board.splice(y, 1);
-            tetrisGame.board.unshift(new Array(tetrisGame.boardWidth).fill(0));
-            linesCleared++;
-            y++; // Check the same line again
-        }
-    }
-    
-    if (linesCleared > 0) {
-        gameLines += linesCleared;
-        
-        // Scoring system
-        const lineScores = [0, 40, 100, 300, 1200];
-        gameScore += (lineScores[linesCleared] || 0) * gameLevel;
-        
-        // Level progression
-        gameLevel = Math.floor(gameLines / 10) + 1;
-        tetrisGame.dropInterval = Math.max(50, 1000 - (gameLevel - 1) * 50);
-        
-        updateTetrisStats();
-    }
-}
-
-function rotateMatrix(matrix) {
-    const rows = matrix.length;
-    const cols = matrix[0].length;
-    const rotated = [];
-    
-    for (let i = 0; i < cols; i++) {
-        rotated[i] = [];
-        for (let j = 0; j < rows; j++) {
-            rotated[i][j] = matrix[rows - 1 - j][i];
-        }
-    }
-    
-    return rotated;
-}
-
-function updateTetrisStats() {
-    const scoreEl = document.getElementById('score');
-    const levelEl = document.getElementById('level');
-    const linesEl = document.getElementById('lines');
-    
-    if (scoreEl) scoreEl.textContent = gameScore;
-    if (levelEl) levelEl.textContent = gameLevel;
-    if (linesEl) linesEl.textContent = gameLines;
-}
-
-function gameOver() {
-    if (tetrisGame) {
-        tetrisGame.gameRunning = false;
-    }
-    document.getElementById('game-over-modal').classList.add('active');
-}
-
-function resetTetrisGame() {
-    if (tetrisGame) {
-        tetrisGame.board = createEmptyBoard(tetrisGame.boardWidth, tetrisGame.boardHeight);
-        tetrisGame.currentPiece = null;
-        tetrisGame.gameRunning = false;
-        gameScore = 0;
-        gameLevel = 1;
-        gameLines = 0;
-        updateTetrisStats();
-        drawTetrisBoard();
-    }
-}
-
-// Add window resize handler for responsive canvas
+// Add window resize handler
 window.addEventListener('resize', function() {
-    if (currentScreen === 'tetris' && tetrisGame) {
-        // Reinitialize with new dimensions
-        setTimeout(() => {
-            initializeTetris();
-        }, 100);
-    }
+    // Reserved for future use
 });
 
 // Event Listeners
@@ -1107,74 +686,12 @@ function addEventListeners() {
         });
     }
     
-    // Modal buttons
-    const confirmBtn = document.getElementById('confirm-btn');
-    const okBtn = document.getElementById('ok-btn');
-    
-    if (confirmBtn) {
-        confirmBtn.addEventListener('click', function() {
-            document.getElementById('game-over-modal').classList.remove('active');
-            document.getElementById('final-message-modal').classList.add('active');
-        });
-    }
-    
-    if (okBtn) {
-        okBtn.addEventListener('click', function() {
-            document.getElementById('final-message-modal').classList.remove('active');
-            showScreen('main');
-            resetTetrisGame();
-        });
-    }
-    
-    // Keyboard controls
+    // Keyboard controls (none needed without tetris)
     document.addEventListener('keydown', function(event) {
-        if (currentScreen === 'tetris' && tetrisGame && tetrisGame.gameRunning) {
-            switch(event.key) {
-                case 'ArrowLeft':
-                    event.preventDefault();
-                    moveTetrisPiece('left');
-                    break;
-                case 'ArrowRight':
-                    event.preventDefault();
-                    moveTetrisPiece('right');
-                    break;
-                case 'ArrowDown':
-                    event.preventDefault();
-                    moveTetrisPiece('down');
-                    break;
-                case 'ArrowUp':
-                case ' ':
-                    event.preventDefault();
-                    rotateTetrisPiece();
-                    break;
-            }
-        }
+        // Reserved for future use
     });
 }
 
-function addTetrisListeners() {
-    const leftBtn = document.getElementById('left-btn');
-    const rightBtn = document.getElementById('right-btn');
-    const rotateBtn = document.getElementById('rotate-btn');
-    
-    if (leftBtn) {
-        leftBtn.addEventListener('click', function() {
-            moveTetrisPiece('left');
-        });
-    }
-    
-    if (rightBtn) {
-        rightBtn.addEventListener('click', function() {
-            moveTetrisPiece('right');
-        });
-    }
-    
-    if (rotateBtn) {
-        rotateBtn.addEventListener('click', function() {
-            rotateTetrisPiece();
-        });
-    }
-}
 
 function handleContinueNavigation() {
     switch(currentScreen) {
@@ -1183,9 +700,6 @@ function handleContinueNavigation() {
             break;
         case 'gallery':
             showScreen('music');
-            break;
-        case 'music':
-            showScreen('tetris');
             break;
         default:
             showScreen('main');
