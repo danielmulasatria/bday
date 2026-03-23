@@ -354,10 +354,10 @@ body {
 }
 
 
-/* Menu Buttons - Fixed Tetris Button */
+/* Menu Buttons - 3 buttons */
 .menu-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
     margin-bottom: 30px;
 }
@@ -1258,29 +1258,167 @@ body {
     background: #357abd;
 }
 
-/* Responsive Design */
+/* ═══════════════════════════════════════
+   RESPONSIVE — MOBILE FRIENDLY
+   ═══════════════════════════════════════ */
+
+/* Base: make gameboy-body scale with viewport */
+.gameboy-body {
+    width: min(400px, 92vw);
+    height: auto;
+    min-height: min(600px, 92vh);
+}
+
+.page-container {
+    width: min(400px, 92vw);
+    height: min(600px, 92vh);
+}
+
+/* Loading screen */
+#loading-screen .gameboy-screen {
+    width: min(600px, 92vw);
+    height: min(400px, 60vh);
+}
+
+/* ── Small phones (≤ 390px) ── */
+@media (max-width: 390px) {
+    body { overflow-y: auto; align-items: flex-start; padding: 10px 0; }
+
+    .gameboy-body {
+        width: 95vw;
+        padding: 14px;
+        border-radius: 16px 16px 30px 30px;
+    }
+
+    .gameboy-screen { height: 160px; margin-bottom: 12px; }
+    .birthday-title { font-size: 16px; }
+    .start-text { font-size: 12px; }
+    .dot-matrix { display: none; }
+
+    .menu-buttons {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+    .menu-btn { padding: 10px 4px; font-size: 10px; }
+
+    .controls { margin-bottom: 10px; }
+    .dpad { width: 64px; height: 64px; }
+    .dpad-up, .dpad-down { width: 24px; height: 20px; font-size: 12px; }
+    .dpad-left, .dpad-right { width: 20px; height: 24px; font-size: 12px; }
+    .action-btn { width: 38px; height: 38px; font-size: 14px; }
+
+    .bottom-controls { gap: 10px; }
+    .control-btn { padding: 6px 14px; font-size: 10px; }
+
+    .speaker-grille { height: 20px; }
+
+    /* Page screens */
+    .page-screen { padding: 10px; }
+    .page-header { font-size: 14px; padding: 8px; }
+    .message-content { font-size: 12px; line-height: 1.6; }
+    .page-btn { padding: 8px 14px; font-size: 10px; }
+
+    /* Loading */
+    #loading-screen .gameboy-screen { width: 95vw; height: 55vh; }
+    #loading-screen .title { font-size: 26px; letter-spacing: 2px; }
+    #loading-screen .loading-text { font-size: 14px; }
+    .progress-bar { height: 22px; }
+    .progress-text { font-size: 12px; }
+}
+
+/* ── Medium phones (391px – 480px) ── */
+@media (min-width: 391px) and (max-width: 480px) {
+    body { overflow-y: auto; align-items: flex-start; padding: 12px 0; }
+
+    .gameboy-body {
+        width: 93vw;
+        padding: 16px;
+    }
+
+    .gameboy-screen { height: 175px; margin-bottom: 14px; }
+    .birthday-title { font-size: 19px; }
+    .start-text { font-size: 13px; }
+
+    .menu-buttons {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+    .menu-btn { padding: 12px 6px; font-size: 11px; }
+
+    .dpad { width: 70px; height: 70px; }
+    .action-btn { width: 42px; height: 42px; font-size: 15px; }
+    .control-btn { padding: 7px 16px; font-size: 11px; }
+
+    /* Page screens */
+    .page-screen { padding: 12px; }
+    .message-content { font-size: 13px; }
+    .page-btn { padding: 9px 16px; font-size: 11px; }
+
+    /* Loading */
+    #loading-screen .gameboy-screen { width: 93vw; height: 58vh; }
+    #loading-screen .title { font-size: 30px; }
+    #loading-screen .loading-text { font-size: 16px; }
+}
+
+/* ── Tablets (481px – 768px) ── */
+@media (min-width: 481px) and (max-width: 768px) {
+    .gameboy-body { width: 380px; }
+    .page-container { width: 380px; }
+    .birthday-title { font-size: 22px; }
+    .menu-btn { padding: 13px 8px; font-size: 12px; }
+}
+
+/* ── Touch: bigger tap targets ── */
+@media (hover: none) and (pointer: coarse) {
+    .menu-btn { min-height: 44px; }
+    .action-btn { min-width: 44px; min-height: 44px; }
+    .control-btn { min-height: 36px; }
+    .page-btn { min-height: 40px; }
+    .photo-btn { min-height: 44px; padding: 12px 24px; }
+    .playlist-btn { min-height: 36px; padding: 8px 16px; }
+}
+
+/* ── Landscape phones ── */
+@media (max-height: 500px) and (orientation: landscape) {
+    body { overflow-y: auto; align-items: flex-start; padding: 8px; }
+
+    .gameboy-body {
+        width: auto;
+        min-height: unset;
+        height: auto;
+        padding: 12px 16px;
+    }
+
+    .gameboy-screen { height: 130px; margin-bottom: 10px; }
+    .birthday-title { font-size: 15px; }
+    .start-text { font-size: 11px; margin-bottom: 8px; }
+    .dot-matrix { display: none; }
+
+    .menu-buttons { margin-bottom: 10px; gap: 6px; }
+    .menu-btn { padding: 8px 4px; font-size: 10px; }
+
+    .controls { margin-bottom: 8px; }
+    .dpad { width: 58px; height: 58px; }
+    .action-btn { width: 36px; height: 36px; font-size: 13px; }
+    .bottom-controls { margin-bottom: 8px; }
+    .control-btn { padding: 5px 12px; font-size: 10px; }
+    .speaker-grille { height: 16px; }
+
+    .page-container { height: 90vh; }
+}
+
+/* Modal responsive */
 @media (max-width: 480px) {
-    .gameboy-body,
-    .page-container {
-        width: 90vw;
-        height: 80vh;
-        max-width: 400px;
-    }
-    
-    #loading-screen .gameboy-screen {
-        width: 90vw;
-        height: 60vh;
-        max-width: 600px;
-    }
-    
-    #loading-screen .title {
-        font-size: 32px;
-    }
-    
     .modal-content {
-        width: 95%;
-        padding: 20px;
+        width: 92%;
+        padding: 20px 16px;
     }
+    .game-over-text { font-size: 24px; }
+    .final-message-title { font-size: 18px; }
+    .final-message-text { font-size: 13px; }
+    .modal-btn { padding: 10px 20px; font-size: 14px; }
 }
 
 /* Animations */
@@ -1301,4 +1439,3 @@ body {
 .birthday-title {
     animation: glow 2s ease-in-out infinite;
 }
-
