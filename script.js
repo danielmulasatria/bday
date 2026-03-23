@@ -321,7 +321,7 @@ function startPhotoShow() {
             image: './images/photo3.jpg'
         },
         {
-            text: 'Valentine Day❤️',
+            text: 'Best Day❤️',
             image: './images/photo4.jpg'
         },
         {
