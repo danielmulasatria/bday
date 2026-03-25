@@ -212,11 +212,12 @@ function startTypewriter() {
     const fullMessage = `Haii,
 
 Happy Birthday ya sayang! 🎂
-Selamat ulang tahun yang ke-22 yaa!
 
 Semoga di tahun ini kamu selalu diberikan kesehatan, kebahagiaan, dan kelancaran sepanjang hari yaa. I really wish you the best sayangg.
 
 Terima kasih sudahh mau nemenin aku terus terus dan jangan bosen ya sama akuu masi banyak yg harus kita lakuinn tauu!
+
+Di umur baru ini, kamu semakin bahagia yaa.
 
 I love you so muchuuu 💕`;
     
@@ -253,7 +254,7 @@ function skipTypewriter() {
         clearInterval(typewriterInterval);
         const messageContent = document.querySelector('.message-content');
         if (messageContent) {
-            const fullMessage = `Haii,<br><br>Happy 22nd Birthday ya sayang! 🎂<br><br>Semoga di tahun ini kamu selalu diberikan kesehatan, kebahagiaan, dan kelancaran sepanjang hari yaa. I really wish you the best sayangg.<br><br>Terima kasih sudahh mau nemenin aku terus terus dan jangan bosen ya sama akuu masi banyak yg harus kita lakuinn tauu!<br><br>Di umur baru ini, kamu semakin bahagia yaa.<br><br>I love you so muchuuu 💕`;
+            const fullMessage = `Haii,<br><br>Happy Birthday ya sayang! 🎂<br><br>Semoga di tahun ini kamu selalu diberikan kesehatan, kebahagiaan, dan kelancaran sepanjang hari yaa. I really wish you the best sayangg.<br><br>Terima kasih sudahh mau nemenin aku terus terus dan jangan bosen ya sama akuu masi banyak yg harus kita lakuinn tauu!<br><br>Di umur baru ini, kamu semakin bahagia yaa.<br><br>I love you so muchuuu 💕`;
             messageContent.innerHTML = fullMessage;
             isTyping = false;
             messageContent.scrollTop = messageContent.scrollHeight;
@@ -309,19 +310,19 @@ function startPhotoShow() {
     // Foto lokal dari folder images
     const photos = [
         {
-            text: 'Our First Photobox 💕',
+            text: 'Our First Date 💕',
             image: './images/photo1.jpg'
         },
         {
-            text: 'Another Photobox',
+            text: 'Birthday Moment 🎂',
             image: './images/photo2.jpg'
         },
         {
-            text: 'Addicted to Photobox',
+            text: 'Adventure Time 🌟',
             image: './images/photo3.jpg'
         },
         {
-            text: 'Best Day❤️',
+            text: 'Cozy Together ❤️',
             image: './images/photo4.jpg'
         },
         {
@@ -526,50 +527,63 @@ function startNewSession() {
 
 
 // Music Player Functions
+const playlists = {
+    1: {
+        embedUrl: 'https://open.spotify.com/embed/playlist/2JDECpCSM1F8QoZ0UnZvkB?utm_source=generator&theme=0',
+        name: '🎂 Birthday Playlist',
+        description: 'Spesial buat hari istimewamu ✨'
+    },
+    2: {
+        embedUrl: 'https://open.spotify.com/embed/playlist/3XewOCOy4CT6JcvsSZ5lDf?utm_source=generator&theme=0',
+        name: '💕 Our Songs',
+        description: 'Lagu-lagu yang mengingatkan kita ❤️'
+    }
+};
+
 function initializeMusicPlayer() {
     const musicContent = document.querySelector('.music-content');
     if (!musicContent) return;
-    
+
     musicContent.innerHTML = `
         <div class="spotify-container">
             <div class="spotify-header">
                 <div class="spotify-logo">♪ Music For You</div>
             </div>
+            <div class="playlist-controls">
+                <button class="playlist-btn active" data-playlist="1">Playlist 1</button>
+                <button class="playlist-btn" data-playlist="2">Playlist 2</button>
+            </div>
             <div class="spotify-embed-container">
-                <iframe id="spotify-iframe" 
-                        style="border-radius:12px" 
-                        src="https://open.spotify.com/embed/playlist/3XewOCOy4CT6JcvsSZ5lDf?utm_source=generator&theme=0" 
-                        width="100%" 
-                        height="220" 
-                        frameBorder="0" 
-                        allowfullscreen="" 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                <iframe id="spotify-iframe"
+                        style="border-radius:12px"
+                        src="${playlists[1].embedUrl}"
+                        width="100%"
+                        height="220"
+                        frameBorder="0"
+                        allowfullscreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy">
                 </iframe>
             </div>
             <div class="music-info">
-                <div class="current-playlist">🎵 Playlist favorit kitaa!!</div>
-                <div class="playlist-description">Lagu-lagu spesial kita berdua ✨</div>
+                <div class="current-playlist">🎵 ${playlists[1].name}</div>
+                <div class="playlist-description">${playlists[1].description}</div>
             </div>
         </div>
     `;
+
+    // Add listeners after DOM update
+    setTimeout(() => addSpotifyPlayerListeners(), 100);
 }
 
 function addSpotifyPlayerListeners() {
     const playlistBtns = document.querySelectorAll('.playlist-btn');
-    
+
     playlistBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Remove active class from all buttons
             playlistBtns.forEach(b => b.classList.remove('active'));
-            
-            // Add active class to clicked button
             this.classList.add('active');
-            
-            // Get playlist number
             const playlistNum = parseInt(this.getAttribute('data-playlist'));
-            
-            // Load corresponding playlist
             loadSpotifyPlaylist(playlistNum);
         });
     });
@@ -579,53 +593,18 @@ function loadSpotifyPlaylist(playlistNumber) {
     const iframe = document.getElementById('spotify-iframe');
     const currentPlaylist = document.querySelector('.current-playlist');
     const playlistDescription = document.querySelector('.playlist-description');
-    
+
     if (!iframe) return;
-    
-    // Playlist data - Ganti dengan link playlist Spotify kamu
-    const playlists = {
-        1: {
-            // Ganti dengan playlist pertama kamu
-            embedUrl: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWYtQSOiZF6hj?si=0b945793c2934ba1',
-            name: 'Birthday Special Mix',
-            description: 'Lagu-lagu spesial untuk hari istimewa kamu ✨'
-        },
-        2: {
-            // Ganti dengan playlist kedua kamu
-            embedUrl: 'https://open.spotify.com/embed/playlist/3gPSenyxZMdB3A54HeEruz?si=6b4dec830d4f4a48',
-            name: 'Love Songs Collection',
-            description: 'Koleksi lagu cinta terbaik untuk kita ❤️'
-        },
-        3: {
-            // Ganti dengan playlist ketiga kamu
-            embedUrl: 'https://open.spotify.com/embed/playlist/4dlQ4JHE6abxv38aae2HL1?si=95730613199e4dad',
-            name: 'Happy Memories',
-            description: 'Lagu-lagu yang mengingatkan kenangan indah 🌟'
-        }
-    };
-    
-    const selectedPlaylist = playlists[playlistNumber];
-    
-    if (selectedPlaylist) {
-        // Update iframe source
-        iframe.src = selectedPlaylist.embedUrl;
-        
-        // Update info
-        if (currentPlaylist) {
-            currentPlaylist.textContent = `Now Playing: ${selectedPlaylist.name}`;
-        }
-        
-        if (playlistDescription) {
-            playlistDescription.textContent = selectedPlaylist.description;
-        }
-        
-        // Add loading effect
-        iframe.style.opacity = '0.5';
-        
-        iframe.onload = function() {
-            this.style.opacity = '1';
-        };
-    }
+
+    const selected = playlists[playlistNumber];
+    if (!selected) return;
+
+    iframe.style.opacity = '0.5';
+    iframe.src = selected.embedUrl;
+    iframe.onload = function() { this.style.opacity = '1'; };
+
+    if (currentPlaylist) currentPlaylist.textContent = `🎵 ${selected.name}`;
+    if (playlistDescription) playlistDescription.textContent = selected.description;
 }
 
 
